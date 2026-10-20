@@ -1,0 +1,29 @@
+<div class="px-40 mt-10 w-full flex justify-center" style="flex-direction: column; align-items: center;">
+    @if(id){
+        <h1 class="text-3xl font-bold mb-10" >Update Brand</h1>
+    }@else {
+
+        <h1 class="text-3xl font-bold mb-10" >Add New Brand</h1>
+    }
+        <form action="" class="shadow w-96 p6">
+            <div class="flex flex-wrap">
+                <mat-form-field class="w-full">
+                    <mat-label>Brand Name</mat-label>
+                    <input matInput type="text" name="name" required placeholder="Brand Name" [(ngModel)]="name" />
+                </mat-form-field>
+                <!-- <mat-form-field>
+                    <mat-label>Brand Description</mat-label>
+                    <input matInput type="text" name="description" required placeholder="Brand Description" />
+                </mat-form-field> -->
+            </div>  
+            <div class="flex justify-center">
+                @if(id){
+                    <button mat-raised-button color="primary" (click)="update()" [disabled]="!name">Update Brand</button>
+                }@else {
+                    <button mat-raised-button color="primary" (click)="add()" [disabled]="!name">Add Brand</button>
+
+                }
+                
+            </div>
+        </form>
+</div>
