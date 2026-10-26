@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Service } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Brands } from '../types/brand';
 
-@Service()
+@Injectable({
+  providedIn: 'root'
+})
 export class Brand {
      http = inject(HttpClient);
     baseUrl = environment.apiUrl;

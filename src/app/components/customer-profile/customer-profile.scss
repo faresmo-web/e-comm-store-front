@@ -1,0 +1,19 @@
+:host {
+  display: block;
+}
+
+mat-card {
+  border-radius: 16px;
+}
+
+mat-form-field {
+  font-size: 14px;
+}
+
+mat-card-content {
+  overflow-wrap: anywhere;
+}
+
+button mat-icon {
+  vertical-align: middle;
+}

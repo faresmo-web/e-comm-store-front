@@ -1,0 +1,105 @@
+
+<div class="flex min-h-screen items-center justify-center bg-gray-100 px-4 py-10">
+
+  <div class="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl">
+
+    <!-- Header -->
+    <div class="mb-8 text-center">
+      <h1 class="text-3xl font-bold text-gray-800">
+        Welcome Back
+      </h1>
+
+      <p class="mt-2 text-sm text-gray-500">
+        Login to your ShopZone account
+      </p>
+    </div>
+
+    <!-- Login Form -->
+    <form class="space-y-5" [formGroup]="loginForm" (ngSubmit)="login()">
+
+      <!-- Email -->
+      <div>
+        <label
+          for="email"
+          class="mb-2 block text-sm font-semibold text-gray-700">
+          Email Address
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          name="email"
+          formControlName="email"
+          required
+          email
+          placeholder="example@email.com"
+          class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+        />
+      </div>
+
+      <!-- Password -->
+      <div>
+        <div class="mb-2 flex items-center justify-between">
+          <label
+            for="password"
+            class="block text-sm font-semibold text-gray-700">
+            Password
+          </label>
+
+          <a
+            routerLink="/forgot-password"
+            class="text-sm font-medium text-blue-600 hover:text-blue-800">
+            Forgot password?
+          </a>
+        </div>
+
+        <input
+          id="password"
+          type="password"
+          name="password"
+          formControlName="password"
+          required
+          minlength="8"
+          placeholder="Enter your password"
+          class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+        />
+      </div>
+
+      <!-- Remember Me -->
+      <div class="flex items-center gap-2">
+        <input
+          id="remember"
+          type="checkbox"
+          name="remember"
+          class="h-4 w-4 rounded border-gray-300 accent-blue-600"
+        />
+
+        <label
+          for="remember"
+          class="text-sm text-gray-600">
+          Remember me
+        </label>
+      </div>
+
+      <!-- Login Button -->
+      <button
+        mat-raised-button
+        type="submit"
+        class="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white shadow-md transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200 active:scale-[0.99]">
+        Login
+      </button>
+
+    </form>
+
+    <!-- Register Link -->
+    <p class="mt-6 text-center text-sm text-gray-600">
+      Don't have an account?
+      <a
+        routerLink="/register"
+        class="font-semibold text-blue-600 hover:text-blue-800 cursor-pointer">
+        Create Account
+      </a>
+    </p>
+
+  </div>
+</div>

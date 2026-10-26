@@ -1,0 +1,104 @@
+
+<div class="min-h-screen flex items-center justify-center bg-gray-100 px-4 py-10">
+
+  <div class="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl">
+
+    <!-- Header -->
+    <div class="mb-8 text-center">
+      <h1 class="text-3xl font-bold text-gray-800">
+        Create Account
+      </h1>
+
+      <p class="mt-2 text-sm text-gray-500">
+        Sign up to get started with ShopZone
+      </p>
+    </div>
+
+    <!-- Register Form -->
+    <form class="space-y-5" [formGroup]="registerForm">
+
+      <!-- Name -->
+      <div>
+        <label for="name"
+          class="mb-2 block text-sm font-semibold text-gray-700">
+          Full Name
+        </label>
+
+        <input
+          
+          type="text"
+          
+          formControlName="name"
+          required
+          minlength="3"
+          placeholder="Enter your full name"
+          class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+        />
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label for="email"
+          class="mb-2 block text-sm font-semibold text-gray-700">
+          Email Address
+        </label>
+
+        <input
+         
+          type="email"
+         
+          formControlName="email"
+          required
+          email
+          placeholder="example@email.com"
+          class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+        />
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label for="password"
+          class="mb-2 block text-sm font-semibold text-gray-700">
+          Password
+        </label>
+
+        <input
+          
+          type="password"
+          
+          formControlName="password"
+          required
+          minlength="8"
+          placeholder="Enter your password"
+          class="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+        />
+
+        <p class="mt-2 text-xs text-gray-500">
+          Password must be at least 8 characters.
+        </p>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        (click)="register()"
+        [disabled]="registerForm.invalid"
+        type="submit"
+        mat-raised-button
+        class="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white shadow-md transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200 active:scale-[0.99]">
+        Create Account
+      </button>
+
+    </form>
+
+    <!-- Login Link -->
+    <p class="mt-6 text-center text-sm text-gray-600">
+      Already have an account?
+      <a
+        routerLink="/login"
+        class="font-semibold text-blue-600 hover:text-blue-800">
+        Login
+      </a>
+    </p>
+
+  </div>
+</div>

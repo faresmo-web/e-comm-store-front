@@ -1,0 +1,48 @@
+<mat-card class="product-card" routerLink="/prudcts/{{product._id}}">
+
+    <!-- Product Image -->
+    <div class="product-image">
+       
+
+        <button
+        mat-icon-button
+        class="wishlist-btn"
+        aria-label="Add to wishlist">
+        <mat-icon>favorite_border</mat-icon>
+        </button>
+
+        <img
+        mat-card-image
+        [src]="product.images[0]"
+        alt="Wireless Headphones">
+    </div>
+
+    <!-- Product Content -->
+    <mat-card-content>
+        <p class="category">{{product.name}}</p>
+
+        <h3 class="product-title">
+        {{product.shotDescription}}
+        </h3>
+
+        
+
+        <!-- Price -->
+        <div class="price">
+        <span class="current-price">${{product.discount}}</span>
+        <span class="old-price">${{product.price}}</span>
+        </div>
+    </mat-card-content>
+
+    <!-- Actions -->
+    <mat-card-actions>
+        <button
+        mat-flat-button
+        color="primary"
+        class="add-to-cart">
+        <mat-icon>shopping_cart</mat-icon>
+        Add to Cart
+        </button>
+    </mat-card-actions>
+
+</mat-card>

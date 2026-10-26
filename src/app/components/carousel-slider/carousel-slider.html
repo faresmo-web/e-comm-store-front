@@ -1,0 +1,16 @@
+<div class="shadow">
+  @if (featuredProducts().length > 0) {
+    <owl-carousel-o [options]="customOptions">
+      @for (item of featuredProducts(); track item._id || $index) {
+        <ng-template carouselSlide [id]="item._id || ''">
+            <div class="relative flex flex-col items-center" routerLink="/prudcts/{{item._id}}">
+                
+                <img [src]="item.images[0]" alt="" class="w-full h-[400px] object-cover rounded-md">
+                <span>{{item.name}}</span>
+            
+            </div>
+        </ng-template>  
+      }
+    </owl-carousel-o>
+  }
+</div>  

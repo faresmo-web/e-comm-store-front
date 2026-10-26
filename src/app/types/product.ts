@@ -8,4 +8,7 @@ export interface Productss {
     images: string[];
     categoryId: string;
     brandId: string;
+    isFeatured:boolean;
+    isNewProduct:boolean;
+    
 }

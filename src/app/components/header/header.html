@@ -1,0 +1,77 @@
+
+<header class="main-header">
+  <!-- First Row -->
+  <div class="top-header">
+    <div class="container header-content">
+
+      <!-- Logo -->
+      <a routerLink="/" class="logo cursor-pointer">
+        <span class="logo-icon">S</span>
+        <span class="logo-text">Shop<span>Zone</span></span>
+      </a>
+
+      <!-- Search -->
+        @if(authService.isLoggedIn()){
+          <form class="search-box" (submit)="$event.preventDefault()">
+        <input
+          type="search"
+          placeholder="Search for products..."
+          [(ngModel)]="searchQuery"
+          aria-label="Search products"
+          (keyup.enter)="onSearch($event)"
+          
+        />
+        <button type="submit" aria-label="Search">
+          <mat-icon mat- class="h-5 w-5">search</mat-icon>
+
+        </button>
+      </form>
+        }
+      
+
+      <!-- Actions -->
+      <div class="header-actions">
+
+        @if (authService.isAdmin()) {
+          <a routerLink="/admin" class="header-link">
+            <mat-icon>person</mat-icon>
+            <span>Dashboard</span>
+          </a>
+        }
+
+        @if (authService.isLoggedIn()) {
+          <a routerLink="/profile" class="header-link">
+            <mat-icon>person</mat-icon>
+            <span>{{authService.userName()}}</span>
+          </a>
+
+          <a (click)="logout()" class="header-link cursor-pointer">
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </a>
+          <a routerLink="/cart" class="header-link cart-link">
+          <mat-icon> local_grocery_store</mat-icon>
+          <span>Cart</span>
+          <span class="cart-count">0</span>
+        </a>
+        }
+
+        
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Second Row: Categories -->
+   @if(authService.isLoggedIn()){
+    <nav class="category-nav">
+    <div class="container category-content">
+      <a  routerLink="/" class="category-link active">Home</a>
+      @for (c of categorieList(); track c._id || $index) {
+        <a (click)="searchCatrgory(c._id!)" class="category-link ">{{ c.name }}</a>
+      }
+    </div>
+  </nav>
+   }
+  
+</header>
