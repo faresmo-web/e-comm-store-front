@@ -1,15 +1,21 @@
 import { Component, inject, signal } from '@angular/core';
 import { CustomerService } from '../../services/customer';
 import { Productss } from '../../types/product';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatAnchor } from '@angular/material/button';
+import { Category } from '../../types/category';
 import { MatIcon } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 import { ProductCard } from '../product-card/product-card';
 import { CarouselSlider } from '../carousel-slider/carousel-slider';
 
 @Component({
-  imports: [MatBadgeModule, MatCardModule, ProductCard,CarouselSlider],
+  imports: [
+    ProductCard,
+    CarouselSlider,
+    MatIcon,
+    MatButtonModule,
+    RouterLink
+  ],
   selector: 'app-home',
   styleUrl: './home.scss',
   templateUrl: './home.html',
@@ -18,10 +24,12 @@ export class Home {
   customerService = inject(CustomerService);
   newProducts = signal<Productss[]>([]);
   featuredProducts = signal<Productss[]>([]);
+  categories = signal<Category[]>([]);
 
   ngOnInit() {
     this.getfeaturedProducts();
     this.getnewProducts();
+    this.getCategories();
   }
 
   getfeaturedProducts() {
@@ -33,6 +41,12 @@ export class Home {
   getnewProducts() {
     this.customerService.getNewProducts().subscribe((result: Productss[]) => {
       this.newProducts.set(result);
+    });
+  }
+
+  getCategories() {
+    this.customerService.getCategories().subscribe((result: Category[]) => {
+      this.categories.set(result);
     });
   }
 }

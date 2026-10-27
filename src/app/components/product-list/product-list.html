@@ -1,1 +1,185 @@
-<p>product-list works!</p>
+<div class="products-page">
+  <!-- Top Breadcrumbs & Page Header -->
+  <div class="page-top-bar">
+    <div class="breadcrumbs">
+      <a routerLink="/" class="breadcrumb-link">
+        <mat-icon class="home-icon">home</mat-icon>
+        <span>Home</span>
+      </a>
+      <mat-icon class="separator">chevron_right</mat-icon>
+      <span class="breadcrumb-current">Products</span>
+      @if (searchQuerys.categoryId && getCategoryName(searchQuerys.categoryId)) {
+        <mat-icon class="separator">chevron_right</mat-icon>
+        <span class="breadcrumb-current active">{{ getCategoryName(searchQuerys.categoryId) }}</span>
+      }
+    </div>
+
+    <div class="header-main">
+      <div>
+        <h1 class="page-title">
+          @if (searchQuerys.categoryId && getCategoryName(searchQuerys.categoryId)) {
+            {{ getCategoryName(searchQuerys.categoryId) }}
+          } @else {
+            All Products
+          }
+        </h1>
+        <p class="page-subtitle">Explore our collection with premium quality and best deals</p>
+      </div>
+
+      <div class="badge-count">
+        <span>{{ products().length }} Products</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-layout">
+    <!-- Filters Sidebar -->
+    <aside class="filters-sidebar">
+      <div class="filters-card">
+        <div class="filters-card-header">
+          <div class="title-wrap">
+            <mat-icon class="filter-icon">tune</mat-icon>
+            <h2>Filters</h2>
+          </div>
+          @if (hasActiveFilters) {
+            <button type="button" class="clear-all-btn" (click)="clearFilters()">
+              Clear all
+            </button>
+          }
+        </div>
+
+        <!-- Active Filter Pills/Chips -->
+        @if (hasActiveFilters) {
+          <div class="active-chips-wrap">
+            @if (searchQuerys.searchQuery) {
+              <div class="filter-chip">
+                <span>"{{ searchQuerys.searchQuery }}"</span>
+                <button type="button" (click)="searchQuerys.searchQuery = ''; getProducts()">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            }
+            @if (searchQuerys.categoryId) {
+              <div class="filter-chip">
+                <span>{{ getCategoryName(searchQuerys.categoryId) }}</span>
+                <button type="button" (click)="onCategoryChange('')">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            }
+            @if (searchQuerys.brandId) {
+              <div class="filter-chip">
+                <span>{{ getBrandName(searchQuerys.brandId) }}</span>
+                <button type="button" (click)="onBrandChange('')">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- Filter Sections -->
+        <div class="filters-body">
+          <!-- Category Filter -->
+          <div class="filter-section">
+            <span class="section-label">Category</span>
+            <mat-form-field appearance="outline" class="w-full custom-field">
+              <mat-label>All Categories</mat-label>
+              <mat-select [value]="searchQuerys.categoryId" (selectionChange)="onCategoryChange($event.value)">
+                <mat-option [value]="''">All Categories</mat-option>
+                @for (c of categorys(); track c._id || $index) {
+                  <mat-option [value]="c._id">{{ c.name }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Brand Filter -->
+          <div class="filter-section">
+            <span class="section-label">Brand</span>
+            <mat-form-field appearance="outline" class="w-full custom-field">
+              <mat-label>All Brands</mat-label>
+              <mat-select [value]="searchQuerys.brandId" (selectionChange)="onBrandChange($event.value)">
+                <mat-option [value]="''">All Brands</mat-option>
+                @for (b of brands(); track b._id || $index) {
+                  <mat-option [value]="b._id">{{ b.name }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Sort Order -->
+          <div class="filter-section">
+            <span class="section-label">Sort By</span>
+            <mat-form-field appearance="outline" class="w-full custom-field">
+              <mat-label>Sort Option</mat-label>
+              <mat-select [value]="searchQuerys.sorOrder" (selectionChange)="onSortChange($event.value)">
+                <mat-option [value]="1">Price: Low to High</mat-option>
+                <mat-option [value]="-1">Price: High to Low</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Products Content Area -->
+    <main class="products-content">
+      <div class="products-grid">
+        @for (product of products(); track product._id || $index) {
+          <div class="product-item">
+            <app-product-card [product]="product"></app-product-card>
+          </div>
+        } @empty {
+          <div class="empty-state">
+            <div class="empty-icon-box">
+              <mat-icon>search_off</mat-icon>
+            </div>
+            <h3 class="empty-title">No products found</h3>
+            <p class="empty-desc">We couldn't find any products matching your selected filters. Try choosing a different filter or reset.</p>
+            @if (hasActiveFilters) {
+              <button mat-flat-button color="primary" class="reset-btn" (click)="clearFilters()">
+                <mat-icon>refresh</mat-icon>
+                Reset All Filters
+              </button>
+            }
+          </div>
+        }
+        
+
+      </div>
+
+      <!-- Pagination Controls -->
+      @if (products().length > 0) {
+        <div class="pagination-bar">
+          <button 
+            type="button" 
+            class="pagination-btn prev-btn" 
+            [disabled]="searchQuerys.page <= 1"
+            (click)="prevPage()">
+            <mat-icon>chevron_left</mat-icon>
+            <span>Previous</span>
+          </button>
+
+          <div class="page-indicator">
+            @if (totalPages > 0) {
+              <span>Page <strong>{{ searchQuerys.page }}</strong> of <strong>{{ totalPages }}</strong></span>
+            } @else {
+              <span>Page <strong>{{ searchQuerys.page }}</strong></span>
+            }
+          </div>
+
+          <button 
+            type="button" 
+            class="pagination-btn next-btn" 
+            [disabled]="isLastPage()"
+            (click)="nextPage()">
+            <span>Next</span>
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </div>
+      }
+    </main>
+    
+  </div>
+</div>

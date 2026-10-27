@@ -1,0 +1,380 @@
+$primary-color: #2563eb;
+$primary-hover: #1d4ed8;
+$primary-light: #eff6ff;
+$dark-color: #0f172a;
+$text-muted: #64748b;
+$border-color: #e2e8f0;
+$white: #ffffff;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  background: $white;
+}
+
+// ----------------- Hero Slide -----------------
+.hero-slide {
+  width: 100%;
+  min-height: 440px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 60%, #e2e8f0 100%);
+  padding: 48px 64px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  box-sizing: border-box;
+
+  &:hover {
+    .product-hero-img {
+      transform: scale(1.05) translateY(-4px);
+    }
+
+    .shop-now-btn {
+      background: $primary-hover;
+      box-shadow: 0 8px 24px rgba($primary-color, 0.45);
+      transform: translateY(-2px);
+
+      mat-icon {
+        transform: translateX(4px);
+      }
+    }
+  }
+}
+
+.slide-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 40px;
+  align-items: center;
+  width: 100%;
+}
+
+// ----------------- Left Content -----------------
+.slide-content {
+  z-index: 2;
+
+  .slide-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: $primary-light;
+    color: $primary-color;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    border: 1px solid rgba($primary-color, 0.2);
+    box-shadow: 0 2px 8px rgba($primary-color, 0.1);
+
+    mat-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+      color: $primary-color;
+    }
+  }
+
+  .slide-title {
+    font-size: 38px;
+    font-weight: 800;
+    color: $dark-color;
+    line-height: 1.22;
+    letter-spacing: -0.8px;
+    margin: 0 0 14px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .slide-desc {
+    font-size: 15px;
+    color: $text-muted;
+    line-height: 1.6;
+    margin: 0 0 24px;
+    max-width: 500px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+
+  .slide-pricing {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 28px;
+
+    .current-price {
+      font-size: 32px;
+      font-weight: 900;
+      color: $primary-color;
+      letter-spacing: -0.5px;
+    }
+
+    .old-price {
+      font-size: 18px;
+      color: #94a3b8;
+      text-decoration: line-through;
+    }
+
+    .savings-tag {
+      padding: 4px 10px;
+      background: #fee2e2;
+      color: #ef4444;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+  }
+
+  .slide-actions {
+    .shop-now-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      background: $primary-color;
+      color: $white;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 6px 20px rgba($primary-color, 0.35);
+      transition: all 0.25s ease;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        transition: transform 0.25s ease;
+      }
+    }
+  }
+}
+
+// ----------------- Right Visual Showcase -----------------
+.slide-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 350px;
+
+  .visual-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.18) 0%, rgba(37, 99, 235, 0) 70%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+
+  .visual-img-wrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .product-hero-img {
+      max-width: 90%;
+      max-height: 320px;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15));
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+}
+
+// ----------------- Placeholder Loader -----------------
+.hero-placeholder {
+  width: 100%;
+  height: 420px;
+  background: #f1f5f9;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .placeholder-pulse {
+    width: 80%;
+    height: 70%;
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: pulse 1.5s infinite;
+    border-radius: 16px;
+  }
+}
+
+@keyframes pulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+// ----------------- Owl Carousel Overrides -----------------
+::ng-deep .hero-owl-carousel {
+  position: relative;
+  display: block;
+
+  .owl-stage-outer {
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  // Floating Navigation Arrows
+  .owl-nav {
+    margin: 0 !important;
+
+    button.owl-prev,
+    button.owl-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50% !important;
+      background: rgba(255, 255, 255, 0.9) !important;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1) !important;
+      border: 1px solid rgba(0, 0, 0, 0.06) !important;
+      color: #1e293b !important;
+      display: grid !important;
+      place-items: center;
+      transition: all 0.25s ease !important;
+      z-index: 10;
+      opacity: 0.85;
+
+      .nav-arrow {
+        font-size: 28px;
+        line-height: 1;
+        margin-top: -3px;
+        font-weight: 300;
+      }
+
+      &:hover {
+        opacity: 1;
+        background: #ffffff !important;
+        color: $primary-color !important;
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: 0 6px 20px rgba($primary-color, 0.25) !important;
+      }
+    }
+
+    button.owl-prev {
+      left: 18px;
+    }
+
+    button.owl-next {
+      right: 18px;
+    }
+  }
+
+  // Modern Dots Indicators
+  .owl-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 !important;
+    z-index: 10;
+
+    .owl-dot {
+      span {
+        width: 10px;
+        height: 10px;
+        margin: 0 !important;
+        border-radius: 50%;
+        background: #cbd5e1 !important;
+        transition: all 0.3s ease;
+      }
+
+      &.active span {
+        width: 28px;
+        border-radius: 9999px;
+        background: $primary-color !important;
+        box-shadow: 0 2px 8px rgba($primary-color, 0.4);
+      }
+
+      &:hover:not(.active) span {
+        background: #94a3b8 !important;
+      }
+    }
+  }
+}
+
+// ----------------- Responsive Media Queries -----------------
+@media (max-width: 960px) {
+  .hero-slide {
+    padding: 36px 36px 52px;
+    min-height: 480px;
+  }
+
+  .slide-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .slide-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .slide-title {
+      font-size: 28px;
+    }
+
+    .slide-pricing {
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+  }
+
+  .slide-visual {
+    height: 240px;
+    order: -1;
+
+    .product-hero-img {
+      max-height: 220px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-slide {
+    padding: 24px 20px 48px;
+  }
+
+  .slide-content {
+    .slide-title {
+      font-size: 22px;
+    }
+
+    .slide-desc {
+      font-size: 13px;
+    }
+
+    .slide-pricing .current-price {
+      font-size: 24px;
+    }
+  }
+
+  ::ng-deep .hero-owl-carousel .owl-nav {
+    display: none;
+  }
+}

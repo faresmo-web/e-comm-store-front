@@ -1,48 +1,73 @@
-<mat-card class="product-card" routerLink="/prudcts/{{product._id}}">
+<div class="product-card-wrap" [routerLink]="['/prudcts', product._id]">
+  <div class="product-card">
+    
+    <!-- Product Media & Badges -->
+    <div class="product-media">
+      <!-- Discount or New Badge -->
+      @if (hasDiscount) {
+        <span class="badge discount-badge">
+          -{{ discountPercent }}%
+        </span>
+      } @else if (product.isNewProduct) {
+        <span class="badge new-badge">
+          NEW
+        </span>
+      }
 
-    <!-- Product Image -->
-    <div class="product-image">
-       
+      <!-- Wishlist Action -->
+      <button 
+        type="button" 
+        class="wishlist-btn" 
+        [class.active]="isWishlisted"
+        aria-label="Add to wishlist"
+        (click)="toggleWishlist($event)">
+        <mat-icon>{{ isWishlisted ? 'favorite' : 'favorite_border' }}</mat-icon>
+      </button>
 
-        <button
-        mat-icon-button
-        class="wishlist-btn"
-        aria-label="Add to wishlist">
-        <mat-icon>favorite_border</mat-icon>
-        </button>
-
+      <!-- Image Box -->
+      <div class="image-box">
         <img
-        mat-card-image
-        [src]="product.images[0]"
-        alt="Wireless Headphones">
+          [src]="product.images?.[0] || 'assets/placeholder.png'"
+          [alt]="product.name || 'Product Image'"
+          loading="lazy">
+      </div>
     </div>
 
-    <!-- Product Content -->
-    <mat-card-content>
-        <p class="category">{{product.name}}</p>
+    <!-- Product Details -->
+    <div class="product-body">
+      <h3 class="product-title" [title]="product.name">
+        {{ product.name }}
+      </h3>
 
-        <h3 class="product-title">
-        {{product.shotDescription}}
-        </h3>
+      @if (product.shotDescription) {
+        <p class="product-desc" [title]="product.shotDescription">
+          {{ product.shotDescription }}
+        </p>
+      }
 
-        
-
-        <!-- Price -->
-        <div class="price">
-        <span class="current-price">${{product.discount}}</span>
-        <span class="old-price">${{product.price}}</span>
+      <!-- Price -->
+      <div class="product-pricing">
+        <div class="price-wrap">
+          @if (hasDiscount) {
+            <span class="current-price">£{{ product.discount }}</span>
+            <span class="old-price">£ {{ product.price }}</span>
+          } @else {
+            <span class="current-price">£ {{ product.price }}</span>
+          }
         </div>
-    </mat-card-content>
+      </div>
+    </div>
 
-    <!-- Actions -->
-    <mat-card-actions>
-        <button
-        mat-flat-button
-        color="primary"
-        class="add-to-cart">
-        <mat-icon>shopping_cart</mat-icon>
-        Add to Cart
-        </button>
-    </mat-card-actions>
+    <!-- Card Action Button -->
+    <div class="product-footer">
+      <button 
+        type="button" 
+        class="add-to-cart-btn" 
+        (click)="onAddToCart($event)">
+        <mat-icon>add_shopping_cart</mat-icon>
+        <span>Add to Cart</span>
+      </button>
+    </div>
 
-</mat-card>
+  </div>
+</div>

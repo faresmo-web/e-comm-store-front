@@ -1,16 +1,69 @@
-<div class="shadow">
+<div class="carousel-container">
   @if (featuredProducts().length > 0) {
-    <owl-carousel-o [options]="customOptions">
+    <owl-carousel-o [options]="customOptions" class="hero-owl-carousel">
       @for (item of featuredProducts(); track item._id || $index) {
         <ng-template carouselSlide [id]="item._id || ''">
-            <div class="relative flex flex-col items-center" routerLink="/prudcts/{{item._id}}">
-                
-                <img [src]="item.images[0]" alt="" class="w-full h-[400px] object-cover rounded-md">
-                <span>{{item.name}}</span>
-            
+          <div class="hero-slide" [routerLink]="['/prudcts', item._id]">
+            <div class="slide-grid">
+              
+              <!-- Left Info Column -->
+              <div class="slide-content">
+                <div class="slide-badge">
+                  <mat-icon>verified</mat-icon>
+                  <span>Featured Collection</span>
+                </div>
+
+                <h2 class="slide-title" [title]="item.name">
+                  {{ item.name }}
+                </h2>
+
+                @if (item.shotDescription) {
+                  <p class="slide-desc" [title]="item.shotDescription">
+                    {{ item.shotDescription }}
+                  </p>
+                }
+
+                <div class="slide-pricing">
+                  @if (item.discount && item.discount > 0 && item.discount < item.price) {
+                    <span class="current-price">${{ item.discount }}</span>
+                    <span class="old-price">${{ item.price }}</span>
+                    <span class="savings-tag">
+                      Save ${{ item.price - item.discount }}
+                    </span>
+                  } @else {
+                    <span class="current-price">${{ item.price }}</span>
+                  }
+                </div>
+
+                <div class="slide-actions">
+                  <a [routerLink]="['/prudcts', item._id]" class="shop-now-btn" (click)="$event.stopPropagation()">
+                    <span>Shop Now</span>
+                    <mat-icon>arrow_forward</mat-icon>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Right Image / Showcase Column -->
+              <div class="slide-visual">
+                <div class="visual-glow"></div>
+                <div class="visual-img-wrap">
+                  <img 
+                    [src]="item.images?.[0] || 'assets/placeholder.png'" 
+                    [alt]="item.name || 'Featured Product'" 
+                    class="product-hero-img"
+                    loading="eager">
+                </div>
+              </div>
+
             </div>
+          </div>
         </ng-template>  
       }
     </owl-carousel-o>
+  } @else {
+    <!-- Skeleton loader state -->
+    <div class="hero-placeholder">
+      <div class="placeholder-pulse"></div>
+    </div>
   }
-</div>  
+</div>

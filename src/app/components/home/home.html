@@ -1,27 +1,177 @@
-<div class="px-20 mt-10">
-    <app-carousel-slider></app-carousel-slider>
-    
-    <div class="mt-8">
-        <h4 class="text-3xl font-bold">Featured Products</h4>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
-            @for (product of featuredProducts(); track product._id || $index){
-                <app-product-card [product]="product"></app-product-card>
-            }
+<div class="home-container">
+  
+  <!-- 1. Hero Carousel Banner -->
+  <section class="hero-section">
+    <div class="hero-carousel-wrap">
+      <app-carousel-slider></app-carousel-slider>
+    </div>
+  </section>
+
+  <!-- 2. Trust & Features Bar -->
+  <section class="features-section">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon-box">
+          <mat-icon>local_shipping</mat-icon>
         </div>
+        <div class="feature-info">
+          <h4>Free Shipping</h4>
+          <p>On all orders over $50</p>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon-box">
+          <mat-icon>verified_user</mat-icon>
+        </div>
+        <div class="feature-info">
+          <h4>Secure Payment</h4>
+          <p>100% protected checkout</p>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon-box">
+          <mat-icon>replay</mat-icon>
+        </div>
+        <div class="feature-info">
+          <h4>30-Day Returns</h4>
+          <p>Hassle-free money back</p>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon-box">
+          <mat-icon>support_agent</mat-icon>
+        </div>
+        <div class="feature-info">
+          <h4>24/7 Support</h4>
+          <p>Dedicated customer care</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Categories Quick Browse -->
+  @if (categories().length > 0) {
+    <section class="categories-section">
+      <div class="section-header">
+        <div class="header-text">
+          <span class="section-badge">Categories</span>
+          <h2 class="section-title">Shop by Category</h2>
+        </div>
+        <a routerLink="/prudcts" class="view-all-link">
+          <span>All Categories</span>
+          <mat-icon>arrow_forward</mat-icon>
+        </a>
+      </div>
+
+      <div class="categories-grid">
+        @for (cat of categories(); track cat._id || $index) {
+          <a [routerLink]="['/prudcts']" [queryParams]="{ categoryId: cat._id }" class="category-card">
+            <div class="cat-icon-wrap">
+              <mat-icon>category</mat-icon>
+            </div>
+            <span class="cat-name">{{ cat.name }}</span>
+            <span class="cat-action">Explore &rarr;</span>
+          </a>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- 4. Featured Products Section -->
+  <section class="products-section">
+    <div class="section-header">
+      <div class="header-text">
+        <span class="section-badge">Top Picks</span>
+        <h2 class="section-title">Featured Products</h2>
+        <p class="section-subtitle">Handpicked selection of our top-rated quality products</p>
+      </div>
+      <a routerLink="/prudcts" class="view-all-link">
+        <span>View All</span>
+        <mat-icon>arrow_forward</mat-icon>
+      </a>
     </div>
 
-    <hr class="mt-12">
-
-    <div class="mt-8">
-        <h4 class="text-4xl font-bold">New Products</h4>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
-            @for (product of newProducts(); track product._id || $index){
-                <app-product-card [product]="product"></app-product-card>
-            }
+    <div class="products-grid">
+      @for (product of featuredProducts(); track product._id || $index) {
+        <div class="product-item">
+          <app-product-card [product]="product"></app-product-card>
         </div>
+      } @empty {
+        <div class="empty-products col-span-full">
+          <mat-icon>inventory_2</mat-icon>
+          <p>No featured products available at this time.</p>
+        </div>
+      }
     </div>
+  </section>
+
+  <!-- 5. Promotional Mid-Page Banner -->
+  <section class="promo-banner-section">
+    <div class="promo-banner">
+      <div class="promo-content">
+        <span class="promo-badge">Limited Time Offer</span>
+        <h3 class="promo-title">Special Deals Up To 50% Off</h3>
+        <p class="promo-desc">Upgrade your lifestyle with our premium collections at unbeatable prices. Don't miss out on seasonal promotions.</p>
+        <a routerLink="/prudcts" class="promo-btn">
+          <span>Shop Collection Now</span>
+          <mat-icon>arrow_forward</mat-icon>
+        </a>
+      </div>
+      <div class="promo-graphic">
+        <div class="discount-pill">
+          <span class="percent">50%</span>
+          <span class="off-text">OFF</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. New Arrivals Section -->
+  <section class="products-section">
+    <div class="section-header">
+      <div class="header-text">
+        <span class="section-badge new-badge">Fresh Arrivals</span>
+        <h2 class="section-title">New Products</h2>
+        <p class="section-subtitle">Check out the newest additions just added to our catalog</p>
+      </div>
+      <a routerLink="/prudcts" class="view-all-link">
+        <span>View All</span>
+        <mat-icon>arrow_forward</mat-icon>
+      </a>
+    </div>
+
+    <div class="products-grid">
+      @for (product of newProducts(); track product._id || $index) {
+        <div class="product-item">
+          <app-product-card [product]="product"></app-product-card>
+        </div>
+      } @empty {
+        <div class="empty-products col-span-full">
+          <mat-icon>inventory_2</mat-icon>
+          <p>No new products available right now.</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- 7. Newsletter / Perks Section -->
+  <section class="newsletter-section">
+    <div class="newsletter-card">
+      <div class="newsletter-icon">
+        <mat-icon>mark_email_read</mat-icon>
+      </div>
+      <div class="newsletter-text">
+        <h3>Stay Connected With ShopZone</h3>
+        <p>Subscribe to receive exclusive deals, weekly discounts, and the latest product updates.</p>
+      </div>
+      <form class="newsletter-form" (submit)="$event.preventDefault()">
+        <input type="email" placeholder="Enter your email address..." required aria-label="Email address" />
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
 </div>
-
-
-   
-    

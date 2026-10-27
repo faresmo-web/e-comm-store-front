@@ -1,0 +1,152 @@
+<div class="pd-page">
+
+  <!-- Loading State -->
+  @if (loading()) {
+    <div class="pd-loading">
+      <div class="spinner"></div>
+      <p>Loading product...</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (error()) {
+    <div class="pd-error">
+      <mat-icon>error_outline</mat-icon>
+      <h2>Product not found</h2>
+      <a routerLink="/prudcts" class="back-btn">← Back to Products</a>
+    </div>
+  }
+
+  <!-- Product Content -->
+  @if (!loading() && !error() && product()) {
+    <div class="pd-container">
+
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <a routerLink="/">Home</a>
+        <span class="sep">›</span>
+        <a routerLink="/prudcts">Products</a>
+        <span class="sep">›</span>
+        <span>{{ product()!.name }}</span>
+      </nav>
+
+      <div class="pd-grid">
+
+        <!-- ─── Gallery ─── -->
+        <div class="pd-gallery">
+          <div class="main-image-wrap">
+            @if (hasDiscount) {
+              <span class="badge discount-badge">-{{ discountPercent }}%</span>
+            } @else if (product()!.isNewProduct) {
+              <span class="badge new-badge">NEW</span>
+            }
+            <img
+              class="main-image"
+              [src]="selectedImage() || product()!.images?.[0] || 'assets/placeholder.png'"
+              [alt]="product()!.name">
+          </div>
+
+          <!-- Thumbnails -->
+          @if (product()!.images?.length > 1) {
+            <div class="thumbnails">
+              @for (img of product()!.images; track img) {
+                <button
+                  class="thumb-btn"
+                  [class.active]="selectedImage() === img"
+                  (click)="selectImage(img)">
+                  <img [src]="img" [alt]="product()!.name">
+                </button>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- ─── Info ─── -->
+        <div class="pd-info">
+
+          <!-- Title & Badges -->
+          <div class="pd-title-row">
+            @if (product()!.isNewProduct) {
+              <span class="pill new">New Arrival</span>
+            }
+            @if (hasDiscount) {
+              <span class="pill sale">Sale</span>
+            }
+          </div>
+          <h1 class="pd-title">{{ product()!.name }}</h1>
+
+          <!-- Short Description -->
+          @if (product()!.shotDescription) {
+            <p class="pd-short-desc">{{ product()!.shotDescription }}</p>
+          }
+
+          <!-- Price -->
+          <div class="pd-price-block">
+            @if (hasDiscount) {
+              <span class="current-price">£{{ product()!.discount }}</span>
+              <span class="old-price">£{{ product()!.price }}</span>
+              <span class="save-tag">Save {{ discountPercent }}%</span>
+            } @else {
+              <span class="current-price">£{{ product()!.price }}</span>
+            }
+          </div>
+
+          <div class="pd-divider"></div>
+
+          <!-- Full Description -->
+          @if (product()!.description) {
+            <div class="pd-desc">
+              <h3>Description</h3>
+              <p>{{ product()!.description }}</p>
+            </div>
+          }
+
+          <div class="pd-divider"></div>
+
+          <!-- Quantity Selector -->
+          <div class="pd-qty-row">
+            <span class="qty-label">Quantity</span>
+            <div class="qty-control">
+              <button class="qty-btn" (click)="decreaseQty()" [disabled]="quantity() <= 1">
+                <mat-icon>remove</mat-icon>
+              </button>
+              <span class="qty-value">{{ quantity() }}</span>
+              <button class="qty-btn" (click)="increaseQty()">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="pd-actions">
+            <button class="btn-cart" (click)="addToCart()">
+              <mat-icon>add_shopping_cart</mat-icon>
+              Add to Cart
+            </button>
+            <button class="btn-wishlist" aria-label="Add to wishlist">
+              <mat-icon>favorite_border</mat-icon>
+            </button>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="trust-badges">
+            <div class="trust-item">
+              <mat-icon>local_shipping</mat-icon>
+              <span>Free Delivery</span>
+            </div>
+            <div class="trust-item">
+              <mat-icon>cached</mat-icon>
+              <span>Easy Returns</span>
+            </div>
+            <div class="trust-item">
+              <mat-icon>security</mat-icon>
+              <span>Secure Payment</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  }
+
+</div>

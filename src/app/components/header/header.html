@@ -15,11 +15,11 @@
           <form class="search-box" (submit)="$event.preventDefault()">
         <input
           type="search"
+          name="searchQuery"
           placeholder="Search for products..."
           [(ngModel)]="searchQuery"
           aria-label="Search products"
           (keyup.enter)="onSearch($event)"
-          
         />
         <button type="submit" aria-label="Search">
           <mat-icon mat- class="h-5 w-5">search</mat-icon>
@@ -66,9 +66,13 @@
    @if(authService.isLoggedIn()){
     <nav class="category-nav">
     <div class="container category-content">
-      <a  routerLink="/" class="category-link active">Home</a>
+      <a routerLink="/" class="category-link" [class.active]="isHomePage() && !selectedCategoryId()">Home</a>
       @for (c of categorieList(); track c._id || $index) {
-        <a (click)="searchCatrgory(c._id!)" class="category-link ">{{ c.name }}</a>
+        <a (click)="searchCatrgory(c._id!)" 
+           class="category-link cursor-pointer" 
+           [class.active]="selectedCategoryId() === c._id">
+          {{ c.name }}
+        </a>
       }
     </div>
   </nav>

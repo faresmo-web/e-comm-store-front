@@ -7,6 +7,7 @@ import { BrandForm } from './components/manage/brand-form/brand-form';
 import { Products } from './components/manage/products/products';
 import { ProductsForm } from './components/manage/products-form/products-form';
 import { ProductList } from './components/product-list/product-list';
+import { ProductDetails } from './components/product-details/product-details';
 import { Register } from './components/register/register';
 import { Login } from './components/login/login';
 import { authGaurd } from './core/auth-guard';
@@ -77,7 +78,7 @@ export const routes: Routes = [
     },
     {
         path: "prudcts/:id",
-        component: ProductList,
+        component: ProductDetails,
         canActivate:[authGaurd]
     },
      {
