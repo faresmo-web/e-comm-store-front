@@ -183,41 +183,116 @@ $danger-color:  #ef4444;
         color: $primary-color;
       }
     }
+  }
 
-    &.cart-link {
-      background: $light-bg;
-      border-color: $border-color;
-      color: $dark-color;
+  // ── Icon Buttons for Cart & Wishlist ──────────────────────────────────────
+  .header-icon-btn {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    text-decoration: none;
+    background: $light-bg;
+    border: 1.5px solid $border-color;
+    color: $dark-color;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+    mat-icon {
+      font-size: 21px;
+      width: 21px;
+      height: 21px;
+      color: $text-color;
+      transition: transform 0.25s ease, color 0.25s ease;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+
+      mat-icon {
+        transform: scale(1.1);
+      }
+    }
+
+    // Specific button styles
+    &.wishlist-btn-nav {
+      &:hover {
+        background: #fef2f2;
+        border-color: rgba($danger-color, 0.3);
+        box-shadow: 0 6px 16px rgba(239, 68, 68, 0.18);
+
+        mat-icon {
+          color: $danger-color;
+        }
+      }
+    }
+
+    &.cart-btn-nav {
+      background: $white;
+      border-color: rgba($primary-color, 0.2);
 
       mat-icon {
         color: $primary-color;
       }
 
       &:hover {
-        background: $primary-light;
-        border-color: rgba($primary-color, 0.25);
-        color: $primary-color;
+        background: $primary-color;
+        border-color: $primary-color;
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+
+        mat-icon {
+          color: $white;
+        }
+
+        .badge-count.cart-badge {
+          background: $dark-color;
+          color: $white;
+          border-color: $primary-color;
+        }
+      }
+    }
+
+    // Floating Counter Badges
+    .badge-count {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 5px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      border: 2px solid $white;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+      transition: all 0.25s ease;
+      animation: badgePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+      &.wishlist-badge {
+        background: $danger-color;
+        color: $white;
+      }
+
+      &.cart-badge {
+        background: $primary-color;
+        color: $white;
       }
     }
   }
+}
 
-  .cart-count {
-    position: absolute;
-    top: -4px;
-    right: -2px;
-    display: grid;
-    place-items: center;
-    min-width: 19px;
-    height: 19px;
-    padding: 0 4px;
-    background: $danger-color;
-    color: $white;
-    border: 2px solid $white;
-    border-radius: 50px;
-    font-size: 10.5px;
-    font-weight: 700;
-    line-height: 1;
-    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.35);
+@keyframes badgePop {
+  0% {
+    transform: scale(0.6);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 

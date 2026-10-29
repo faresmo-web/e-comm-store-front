@@ -1,0 +1,59 @@
+<div class="wishlist-page">
+  <div class="wishlist-container">
+
+    <!-- Breadcrumb & Top Bar -->
+    <nav class="breadcrumb">
+      <a routerLink="/">Home</a>
+      <span class="sep">›</span>
+      <span class="current">My Wishlist</span>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="wishlist-header">
+      <div class="header-content">
+        <div class="badge-pill">
+          <mat-icon>favorite</mat-icon>
+          <span>Saved Items</span>
+        </div>
+        <h1 class="page-title">My Wishlist</h1>
+        <p class="page-subtitle">
+          Keep track of your favorite products and grab them before they run out of stock.
+        </p>
+      </div>
+
+      @if (WishlistCartService.wishlist().length > 0) {
+        <div class="wishlist-stats">
+          <div class="stat-bubble">
+            <span class="count">{{ WishlistCartService.wishlist().length }}</span>
+            <span class="label">{{ WishlistCartService.wishlist().length === 1 ? 'Product Saved' : 'Products Saved' }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Main Content -->
+    @if (WishlistCartService.wishlist().length > 0) {
+      <div class="wishlist-grid">
+        @for (product of WishlistCartService.wishlist(); track product._id || $index) {
+          <div class="grid-item">
+            <app-product-card [product]="product"></app-product-card>
+          </div>
+        }
+      </div>
+    } @else {
+      <!-- Empty State -->
+      <div class="empty-state-card">
+        <div class="empty-icon-circle">
+          <mat-icon>favorite_border</mat-icon>
+        </div>
+        <h2>Your Wishlist is Empty</h2>
+        <p>Explore our trending catalog and add items you love to your personal wishlist!</p>
+        <a routerLink="/prudcts" class="explore-btn">
+          <span>Start Shopping</span>
+          <mat-icon>arrow_forward</mat-icon>
+        </a>
+      </div>
+    }
+
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<div class="product-card-wrap" [routerLink]="['/prudcts', product._id]">
+<div class="product-card-wrap" >
   <div class="product-card">
     
     <!-- Product Media & Badges -->
@@ -15,15 +15,15 @@
       }
 
       <!-- Wishlist Action -->
+      <!-- Wishlist Action -->
       <button 
         type="button" 
         class="wishlist-btn" 
-        [class.active]="isWishlisted"
+        [class.active]="isWishlisted(product)"
         aria-label="Add to wishlist"
-        (click)="toggleWishlist($event)">
-        <mat-icon>{{ isWishlisted ? 'favorite' : 'favorite_border' }}</mat-icon>
+        (click)="toggleWishlist(product)">
+        <mat-icon>{{ isWishlisted(product) ? 'favorite' : 'favorite_border' }}</mat-icon>
       </button>
-
       <!-- Image Box -->
       <div class="image-box">
         <img
@@ -34,7 +34,7 @@
     </div>
 
     <!-- Product Details -->
-    <div class="product-body">
+    <div class="product-body" [routerLink]="['/prudcts', product._id]">
       <h3 class="product-title" [title]="product.name">
         {{ product.name }}
       </h3>
@@ -60,10 +60,11 @@
 
     <!-- Card Action Button -->
     <div class="product-footer">
+      
       <button 
         type="button" 
         class="add-to-cart-btn" 
-        (click)="onAddToCart($event)">
+        (click)="onAddToCart()">
         <mat-icon>add_shopping_cart</mat-icon>
         <span>Add to Cart</span>
       </button>

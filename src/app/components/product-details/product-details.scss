@@ -478,6 +478,16 @@ $radius:        20px;
       transform: scale(1.15);
     }
   }
+
+  &.active {
+    background: #fef2f2;
+    color: $danger-color;
+    border-color: rgba($danger-color, 0.4);
+
+    mat-icon {
+      color: $danger-color;
+    }
+  }
 }
 
 // ── Trust Badges ───────────────────────────────────────────────────────────

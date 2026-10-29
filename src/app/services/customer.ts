@@ -65,4 +65,6 @@ export class CustomerService {
          return this.http.get<Productss>(`${this.baseUrl}/customer/products/${id}`);
     }
 
+    
+
 }

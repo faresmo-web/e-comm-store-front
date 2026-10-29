@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { ProductCard } from '../product-card/product-card';
 import { CarouselSlider } from '../carousel-slider/carousel-slider';
+import { WishlistCart } from '../../services/wishlist-cart';
 
 @Component({
   imports: [
@@ -25,8 +26,10 @@ export class Home {
   newProducts = signal<Productss[]>([]);
   featuredProducts = signal<Productss[]>([]);
   categories = signal<Category[]>([]);
+  WishlistCartService = inject(WishlistCart)
 
   ngOnInit() {
+    this.WishlistCartService.init()
     this.getfeaturedProducts();
     this.getnewProducts();
     this.getCategories();

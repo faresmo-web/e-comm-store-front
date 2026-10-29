@@ -14,6 +14,7 @@ import { authGaurd } from './core/auth-guard';
 import { AdminDashbaord } from './components/manage/admin-dashbaord/admin-dashbaord';
 import { adminGaurd } from './core/admin-guard';
 import { CustomerProfile } from './components/customer-profile/customer-profile';
+import { Wishlists } from './components/wishlists/wishlists';
 
 export const routes: Routes = [
     {
@@ -84,6 +85,11 @@ export const routes: Routes = [
      {
         path: "profile",
         component: CustomerProfile,
+        canActivate:[authGaurd]
+    },
+     {
+        path: "wishlists",
+        component: Wishlists,
         canActivate:[authGaurd]
     },
     {

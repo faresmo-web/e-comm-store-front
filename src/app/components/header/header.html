@@ -49,11 +49,19 @@
             <mat-icon>logout</mat-icon>
             <span>Logout</span>
           </a>
-          <a routerLink="/cart" class="header-link cart-link">
-          <mat-icon> local_grocery_store</mat-icon>
-          <span>Cart</span>
-          <span class="cart-count">0</span>
-        </a>
+          <!-- Wishlist Action -->
+          <a routerLink="/wishlists" class="header-icon-btn wishlist-btn-nav" aria-label="Wishlist" title="My Wishlist">
+            <mat-icon>favorite</mat-icon>
+            @if (WishlistCartService.wishlist().length > 0) {
+              <span class="badge-count wishlist-badge">{{ WishlistCartService.wishlist().length }}</span>
+            }
+          </a>
+
+          <!-- Cart Action -->
+          <a routerLink="/cart" class="header-icon-btn cart-btn-nav" aria-label="Shopping Cart" title="Shopping Cart">
+            <mat-icon>shopping_bag</mat-icon>
+            <span class="badge-count cart-badge">0</span>
+          </a>
         }
 
         

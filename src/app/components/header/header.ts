@@ -7,6 +7,7 @@ import { Auth } from '../../services/auth';
 import { CustomerService } from '../../services/customer';
 import { FormsModule } from '@angular/forms';
 import { filter } from 'rxjs';
+import { WishlistCart } from '../../services/wishlist-cart';
 
 @Component({
   imports: [
@@ -20,6 +21,7 @@ import { filter } from 'rxjs';
 })
 export class Header {
   customerService = inject(CustomerService);
+  WishlistCartService = inject(WishlistCart);
   categorieList = signal<Category[]>([]);
   authService = inject(Auth);
   router = inject(Router);
